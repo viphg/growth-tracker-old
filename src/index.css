@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background colors */
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    
+    /* Card/Surface colors */
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
+    --card-hover: 240 10% 12%;
+    
+    /* Primary - Purple gradient base */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 262 83% 68%;
+    
+    /* Secondary */
+    --secondary: 240 10% 14%;
+    --secondary-foreground: 0 0% 90%;
+    
+    /* Accent - Blue */
+    --accent: 225 73% 57%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success - Green for achievements */
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning - Orange for in-progress */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 10%;
+    
+    /* Danger */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Muted */
+    --muted: 240 10% 16%;
+    --muted-foreground: 240 5% 55%;
+    
+    /* Border & Input */
+    --border: 240 10% 18%;
+    --input: 240 10% 14%;
+    --ring: 262 83% 58%;
+    
+    /* Popover */
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Chart colors */
+    --chart-1: 262 83% 58%;
+    --chart-2: 225 73% 57%;
+    --chart-3: 160 84% 39%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 340 82% 52%;
+    
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(225, 73%, 57%));
+    --gradient-success: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(172, 66%, 50%));
+    --gradient-card: linear-gradient(180deg, hsl(240, 10%, 10%), hsl(240, 10%, 6%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-glow: 0 0 40px hsl(262 83% 58% / 0.3);
+    --shadow-glow-success: 0 0 30px hsl(160 84% 39% / 0.3);
+    
+    /* Border radius */
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@layer components {
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply backdrop-blur-xl bg-card/80 border border-border/50;
+  }
+  
+  /* Glow effect on hover */
+  .glow-hover {
+    @apply transition-shadow duration-300;
+  }
+  
+  .glow-hover:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Progress bar animation */
+  .progress-animate {
+    animation: progress-fill 1s ease-out forwards;
+  }
+  
+  @keyframes progress-fill {
+    from {
+      width: 0%;
+    }
+  }
+  
+  /* Fade in animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Stagger children animation */
+  .stagger-children > * {
+    @apply fade-in;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+  
+  /* Card hover effect */
+  .card-interactive {
+    @apply transition-all duration-300 hover:border-primary/50;
+  }
+  
+  .card-interactive:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+  
+  /* Skill progress bar */
+  .skill-bar {
+    @apply relative h-2 rounded-full bg-muted overflow-hidden;
+  }
+  
+  .skill-bar-fill {
+    @apply absolute left-0 top-0 h-full rounded-full;
+    background: var(--gradient-primary);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
