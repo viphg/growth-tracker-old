@@ -12,9 +12,11 @@ import { SkillChart } from "@/components/SkillChart";
 import { DataExport } from "@/components/DataExport";
 import { GoalReminders } from "@/components/GoalReminders";
 import { ThemeSwitcher, useTheme } from "@/components/ThemeSwitcher";
+import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { LoadingSpinner, LoadingScreen } from "@/components/LoadingSpinner";
 
 type TabType = "dashboard" | "skills" | "goals" | "achievements" | "review" | "charts";
 
@@ -75,14 +77,7 @@ const MainApp: React.FC = () => {
   };
 
   if (authLoading || isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-muted-foreground">加载中...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="正在加载您的成长数据..." />;
   }
 
   // 显示登录页面
@@ -359,6 +354,9 @@ const MainApp: React.FC = () => {
           {user && <p className="text-xs mt-1">{user.email}</p>}
         </div>
       </footer>
+
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt />
 
       {/* Modals */}
       {showSettings && (
